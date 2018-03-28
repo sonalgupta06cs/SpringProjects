@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+// Spring MVC Java Based Configuration
 @Configuration
 @ComponentScan(basePackages="com.baxter.idc")
 @EnableWebMvc
