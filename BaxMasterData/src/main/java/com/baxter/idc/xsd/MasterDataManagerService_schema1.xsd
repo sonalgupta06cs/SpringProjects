@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed Materials - Property of IBM
+ * "Restricted Materials of IBM"
+ * 5724-O98
+ * (c)  Copyright IBM Corp. 2008, 2011 All Rights Reserved.
+ * US Government Users Restricted Rights - Use, duplication or
+ * disclosure restricted by GSA ADP Schedule Contract with
+ * IBM Corp.
+-->
+
+<xs:schema targetNamespace="http://www.ibm.com/xmlns/prod/ts/mdm/" 
+           version="1.0"
+           xmlns:tns="http://www.ibm.com/xmlns/prod/ts/mdm/" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+           
+  <xs:element name="MasterDataManagerFault" nillable="true" type="xs:string"/> 
+           
+  <xs:element name="getMasterDataObjects"  type="tns:getMasterDataObjects" />
+  <xs:element name="getMasterDataObjectsResponse"  type="tns:getMasterDataObjectsResponse" />
+  
+  <xs:element name="getElements" type="tns:getElements" />
+  <xs:element name="getElementsResponse"  type="tns:getElementsResponse" />
+
+  <xs:element name="isElementInExistence" type="tns:isElementInExistence" />
+  <xs:element name="isElementInExistenceResponse"  type="tns:isElementInExistenceResponse" />
+
+  <xs:element name="getElementsById" type="tns:getElementsById" />
+  <xs:element name="getElementsByIdResponse"  type="tns:getElementsByIdResponse" />
+  
+  <xs:element name="getElementById" type="tns:getElementById" />
+  <xs:element name="getElementByIdResponse"  type="tns:getElementByIdResponse" />
+
+  <xs:element name="getElementAttributes"  type="tns:getElementAttributes" />
+  <xs:element name="getElementAttributesResponse"  type="tns:getElementAttributesResponse" />
+
+  <xs:element name="getElementAttributesMetadata"  type="tns:getElementAttributesMetadata" />
+  <xs:element name="getElementAttributesMetadataResponse"  type="tns:getElementAttributesMetadataResponse" />
+
+  <xs:element name="createElement" type="tns:createElement" />
+  <xs:element name="createElementResponse" type="tns:createElementResponse" />
+
+  <xs:element name="updateElement" type="tns:updateElement" />
+  <xs:element name="updateElementResponse" type="tns:updateElementResponse" />
+
+  <xs:element name="getOrphanElements" type="tns:getOrphanElements" />
+  <xs:element name="getOrphanElementsResponse" type="tns:getOrphanElementsResponse" />  
+    
+  <xs:element name="getEntityVocabularies" type="tns:getEntityVocabularies" />
+  <xs:element name="getEntityVocabulariesResponse" type="tns:getEntityVocabulariesResponse" />           
+
+  <xs:element name="getHierarchies"  type="tns:getHierarchies" />
+  <xs:element name="getHierarchiesResponse"  type="tns:getHierarchiesResponse" />
+
+  <xs:element name="getRootNodes"  type="tns:getRootNodes" />
+  <xs:element name="getRootNodesResponse"  type="tns:getRootNodesResponse" />
+
+  <xs:element name="getChildNodes"  type="tns:getChildNodes" />
+  <xs:element name="getChildNodesResponse"  type="tns:getChildNodesResponse" />
+
+  <xs:element name="addRootNodeToHierarchy" type="tns:addRootNodeToHierarchy" />
+  <xs:element name="addRootNodeToHierarchyResponse" type="tns:addRootNodeToHierarchyResponse" />
+
+  <xs:element name="addNodeToHierarchy" type="tns:addNodeToHierarchy" />
+  <xs:element name="addNodeToHierarchyResponse" type="tns:addNodeToHierarchyResponse" />
+
+  <xs:element name="removeNodesFromHierarchy" type="tns:removeNodesFromHierarchy" />
+  <xs:element name="removeNodesFromHierarchyResponse" type="tns:removeNodesFromHierarchyResponse" />
+
+           
+  <xs:element name="ImportMasterData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="data" type="xs:anyType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="ImportMasterDataResult">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="report" type="tns:ImportReportType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+    
+  <xs:complexType name="ImportReportType">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="inserts"  type="tns:ImportReportEntryType"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="updates"  type="tns:ImportReportEntryType"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="warnings" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="ImportReportEntryType">
+    <xs:sequence>
+      <xs:element name="entityId" type="xs:string"/>
+      <xs:element name="value" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+      
+  <xs:element name="ExportMasterData">
+    <xs:complexType/>
+  </xs:element>
+  
+  <xs:element name="ExportMasterDataResult">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="data" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:complexType name="getMasterDataObjects">
+    <xs:sequence />
+  </xs:complexType>
+
+  <xs:complexType name="getMasterDataObjectsResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="entityAndVocabList" type="tns:MasterDataObject" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getElements">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="mdObject" type="tns:MasterDataObject"  />
+      <xs:element minOccurs="0" maxOccurs="1" name="displayAttrName" type="xs:string"  />
+      <xs:element minOccurs="0" maxOccurs="1" name="start" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="end" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="filterString" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ascending" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="state" type="tns:ElementState" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getElementsResponse">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="elementsWrapper" type="tns:elementsWrapper" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="elementsWrapper">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="elements" type="tns:MasterDataElement" />
+      <xs:element minOccurs="1" maxOccurs="1" name="count" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="isElementInExistence">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="vocabularyName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="elementId" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="isElementInExistenceResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="element" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="getElementsById">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="vocabularyName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="elementIds" type="tns:MasterDataElementIds" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="getElementById">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="vocabularyName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="elementId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="displayAttrName" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="getElementByIdResponse">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="mdElement" type="tns:MasterDataElement" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getElementsByIdResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="elementIds" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="getElementAttributes">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="vocabularyName" type="xs:string"  />
+      <xs:element minOccurs="1" maxOccurs="1" name="elementId" type="xs:string"  />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getElementAttributesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="mdAttrs" type="tns:MasterDataElementAttrs" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getElementAttributesMetadata">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="vocabularyName" type="xs:string"  />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getElementAttributesMetadataResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="vocabMetaData" type="tns:MasterDataVocabMetadata" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="createElement">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="vocabularyName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="elementId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="mdAttrs" type="tns:MasterDataElementAttrs" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="createElementResponse">
+    <xs:sequence />
+  </xs:complexType>
+
+  <xs:complexType name="updateElement">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="vocabularyName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="elementId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="mdAttrs" type="tns:MasterDataElementAttrs" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="updateElementResponse">
+    <xs:sequence />
+  </xs:complexType>
+
+  <xs:complexType name="getOrphanElements">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="vocabularyName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="hierarchyName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="displayAttrName" type="xs:string"  />
+      <xs:element minOccurs="0" maxOccurs="1" name="start" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="end" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="filterString" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ascending" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="state" type="tns:ElementState" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getOrphanElementsResponse">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="elementsWrapper" type="tns:elementsWrapper" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getEntityVocabularies">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="entityName" type="xs:string"  />
+    </xs:sequence>    
+  </xs:complexType>
+
+  <xs:complexType name="getEntityVocabulariesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="vocabList" type="tns:MasterDataObject" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="getHierarchies">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="entityName" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getHierarchiesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="hierarchyNames" type="tns:MasterDataHierarchy" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getRootNodes">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="hierarchyName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="start" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="end" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="filterString" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ascending" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="state" type="tns:ElementState" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="entityDisplayAttr" type="tns:EntityDisplayAttr" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getRootNodesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="elements" type="tns:MasterDataHierarchyNode" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getChildNodes">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="hierarchyName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="element" type="tns:MasterDataElement" />
+      <xs:element minOccurs="0" maxOccurs="1" name="start" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="end" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="filterString" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ascending" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="state" type="tns:ElementState" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="entityDisplayAttr" type="tns:EntityDisplayAttr" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getChildNodesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="elements" type="tns:MasterDataHierarchyNode" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addRootNodeToHierarchy">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="hierarchyName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="elementId" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="vocabularyName" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addRootNodeToHierarchyResponse">
+    <xs:sequence />
+  </xs:complexType>
+
+  <xs:complexType name="addNodeToHierarchy">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="hierarchyName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mdElement" type="tns:MasterDataElement" />
+      <xs:element minOccurs="1" maxOccurs="1" name="elementId" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="vocabularyName" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addNodeToHierarchyResponse">
+    <xs:sequence />
+  </xs:complexType>
+
+  <xs:complexType name="removeNodesFromHierarchy">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="hierarchyName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="mdElements" type="tns:MasterDataElement" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="removeNodesFromHierarchyResponse">
+    <xs:sequence />
+  </xs:complexType>
+
+   
+      
+  <xs:complexType name="MasterDataObject">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="name" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mdObjectType" type="tns:MasterDataObjectType" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="MasterDataElement">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="elementId" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="vocabularyName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="displayString" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="MasterDataElementIds">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="elementIds" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="MasterDataHierarchy">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="name" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="parent" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MasterDataHierarchyNode">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="mdElement" type="tns:MasterDataElement" />
+      <xs:element minOccurs="1" maxOccurs="1" name="parent" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MasterDataElementAttrs">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="enabled" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="entity" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="attributes" type="tns:MasterDataAttr" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MasterDataAttr">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="attrName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="attrValue" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MasterDataVocabMetadata">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="entity" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="mdAttrMetadata" type="tns:MasterDataAttrMetadata" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MasterDataAttrMetadata">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="attrName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dataType" type="tns:AttributeType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="required" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="maxSize"  type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EntityDisplayAttr">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="entityName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="displayAttrName" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="AttributeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="int" />
+      <xs:enumeration value="float" />
+      <xs:enumeration value="double" />
+      <xs:enumeration value="boolean" />
+      <xs:enumeration value="datetime" />
+      <xs:enumeration value="date" />
+      <xs:enumeration value="string" />
+      <xs:enumeration value="node" />
+      <xs:enumeration value="decimal" />
+    </xs:restriction>
+  </xs:simpleType>   
+      
+  <xs:simpleType name="ElementState">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="enabledOnly" />
+      <xs:enumeration value="disabledOnly" />
+      <xs:enumeration value="all" />
+    </xs:restriction>
+  </xs:simpleType> 
+  
+  <xs:simpleType name="MasterDataObjectType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="entity" />
+      <xs:enumeration value="vocabulary" />
+    </xs:restriction>
+  </xs:simpleType>       
+      
+</xs:schema>
